@@ -44,22 +44,31 @@ class Server:
         Retrieve a hypermedia page from the dataset.
 
         Parameters:
-        - index (int, optional): The current start index of the return page. Default is None.
+        - index (int, optional): The current start index of the return page.
+        Default is None.
         - page_size (int, optional): The current page size. Default is 10.
 
         Returns:
         - Dict: A dictionary with information about the hypermedia page.
         """
-        assert index is None or 0 <= index < len(self.dataset()), "Invalid index value."
-
-        index = 0 if index is None else index
-        next_index = min(index + page_size, len(self.dataset()))
-
-        data = self.dataset()[index:next_index]
-
-        return {
+        data = self.indexed_dataset()
+        assert index is not None and index >= 0 and index <= max(data.keys())
+        page_data = []
+        data_count = 0
+        next_index = None
+        start = index if index else 0
+        for i, item in data.items():
+            if i >= start and data_count < page_size:
+                page_data.append(item)
+                data_count += 1
+                continue
+            if data_count == page_size:
+                next_index = i
+                break
+        page_info = {
             'index': index,
             'next_index': next_index,
-            'page_size': page_size,
-            'data': data
+            'page_size': len(page_data),
+            'data': page_data,
         }
+        return page_info
