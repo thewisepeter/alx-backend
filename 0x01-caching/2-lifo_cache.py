@@ -34,9 +34,10 @@ class LIFOCache(BaseCaching):
     def put(self, key, item):
         if key is not None and item is not None:
             self.cache_data[key] = item
+            self.insertion_order.append(key)
 
             if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                last_key = list(self.cache_data.keys())[-1]
+                last_key = self.insertion_order.pop(0)
                 self.cache_data.pop(last_key)
                 print(f"DISCARD: {last_key}")
 
