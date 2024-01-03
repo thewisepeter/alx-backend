@@ -22,6 +22,7 @@
     return None.
 '''
 from base_caching import BaseCaching
+from collections import OrderedDict
 
 
 class LIFOCache(BaseCaching):
@@ -32,14 +33,14 @@ class LIFOCache(BaseCaching):
         super().__init__()
 
     def put(self, key, item):
-        if key is None or item is None:
-            return
-        if key not in self.cache_data:
-            if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                last_key, _ = self.cache_data.popitem(True)
-                print("DISCARD:", last_key)
-        self.cache_data[key] = item
-        self.cache_data.move_to_end(key, last=True)
+        if key is not None and item is not None:
+            if key not in self.cache_data:
+                if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
+                    last_key, _ = self.cache_data.popitem(True)
+                    print("DISCARD:", last_key)
+
+            self.cache_data[key] = item
+            self.cache_data.move_to_end(key, last=True)
 
     def get(self, key):
         return self.cache_data.get(key) if key is not None else None
