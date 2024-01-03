@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 '''
     Create a class LIFOCache that inherits from BaseCaching
     and is a caching system:
@@ -32,14 +32,14 @@ class LIFOCache(BaseCaching):
         super().__init__()
 
     def put(self, key, item):
-        if key is not None and item is not None:
-            self.cache_data[key] = item
-            self.insertion_order.append(key)
-
-            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                last_key = self.insertion_order.pop(0)
-                self.cache_data.pop(last_key)
-                print(f"DISCARD: {last_key}")
+        if key is None or item is None:
+            return
+        if key not in self.cache_data:
+            if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
+                last_key, _ = self.cache_data.popitem(True)
+                print("DISCARD:", last_key)
+        self.cache_data[key] = item
+        self.cache_data.move_to_end(key, last=True)
 
     def get(self, key):
         return self.cache_data.get(key) if key is not None else None
