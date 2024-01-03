@@ -21,8 +21,8 @@
     If key is None or if the key doesn’t exist in self.cache_data,
     return None.
 '''
-from base_caching import BaseCaching
 from collections import OrderedDict
+from base_caching import BaseCaching
 
 
 class LIFOCache(BaseCaching):
