@@ -22,7 +22,6 @@
     return None.
 '''
 from base_caching import BaseCaching
-from collections import OrderedDict
 
 
 class FIFOCache(BaseCaching):
@@ -31,7 +30,6 @@ class FIFOCache(BaseCaching):
     '''
     def __init__(self):
         super().__init__()
-        self.cache_data = OrderedDict()
 
     def put(self, key, item):
         '''
@@ -39,13 +37,12 @@ class FIFOCache(BaseCaching):
         '''
 
         if key is not None and item is not None:
-            if key not in self.cache_data:
-                if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                    last_key, _ = self.cache_data.popitem(True)
-                    print("DISCARD:", last_key)
-
             self.cache_data[key] = item
-            self.cache_data.move_to_end(key, last=True)
+
+            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+                first_key, _ = next(iter(self.cache_data.items()))
+                self.cache_data.pop(first_key)
+                print(f"DISCARD: {first_key}")
 
     def get(self, key):
         '''
