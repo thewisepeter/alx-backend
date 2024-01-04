@@ -32,10 +32,14 @@ class MRUCache(BaseCaching):
     removal mechanism when the limit is reached.
     """
     def __init__(self):
+        """Initializes the cache.
+        """
         super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
+        """Adds an item in the cache.
+        """
         if key is not None and item is not None:
             if key in self.cache_data:
                 '''
@@ -51,6 +55,8 @@ class MRUCache(BaseCaching):
                 self.cache_data[key] = item
 
     def get(self, key):
+        """Retrieves an item by key.
+        """
         if key is not None and key in self.cache_data:
             # Move the accessed key to the end to mark it as most recently used
             self.cache_data.move_to_end(key)
