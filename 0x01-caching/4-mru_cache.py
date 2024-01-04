@@ -28,7 +28,8 @@ from base_caching import BaseCaching
 
 class MRUCache(BaseCaching):
     '''
-        mru implememtation
+        MRUCache that inherits from BaseCaching
+        and is a caching system
     '''
     def __init__(self):
         super().__init__()

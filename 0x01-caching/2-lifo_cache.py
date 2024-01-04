@@ -28,6 +28,7 @@ from base_caching import BaseCaching
 class LIFOCache(BaseCaching):
     '''
         defines a lastin-firstout caching system
+        with extra functions
     '''
     def __init__(self):
         super().__init__()
