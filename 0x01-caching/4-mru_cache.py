@@ -27,11 +27,10 @@ from base_caching import BaseCaching
 
 
 class MRUCache(BaseCaching):
-    '''
-        Represents an object that allows storing and
-        retrieving items from a dictionary with an MRU
-        removal mechanism when the limit is reached.
-    '''
+    """Represents an object that allows storing and
+    retrieving items from a dictionary with an MRU
+    removal mechanism when the limit is reached.
+    """
     def __init__(self):
         super().__init__()
         self.cache_data = OrderedDict()
