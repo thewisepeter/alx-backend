@@ -26,10 +26,10 @@ from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
-    '''
+    """
         class LRUCache that inherits from BaseCaching
         and is a caching system 
-    '''
+    """
     def __init__(self):
         super().__init__()
         self.cache_data = OrderedDict()
