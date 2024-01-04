@@ -31,10 +31,16 @@ class LIFOCache(BaseCaching):
         with extra functions
     '''
     def __init__(self):
+        '''
+            initializes class
+        '''
         super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
+        '''
+            Adds an item by key.
+        '''
         if key is not None and item is not None:
             if key not in self.cache_data:
                 if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
@@ -45,4 +51,7 @@ class LIFOCache(BaseCaching):
             self.cache_data.move_to_end(key, last=True)
 
     def get(self, key):
+        '''
+            Retrieves an item by key.
+        '''
         return self.cache_data.get(key) if key is not None else None

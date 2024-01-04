@@ -26,15 +26,21 @@ from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
-    """
+    '''
         class LRUCache that inherits from BaseCaching
         and is a caching system 
-    """
+    '''
     def __init__(self):
+        '''
+            initializes class
+        '''
         super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
+        '''
+            Adds an item in the cache.
+        '''
         if key is not None and item is not None:
             if key in self.cache_data:
                 '''
@@ -50,6 +56,9 @@ class LRUCache(BaseCaching):
                 self.cache_data[key] = item
 
     def get(self, key):
+        '''
+            Retrieves an item by key.
+        '''
         if key is not None and key in self.cache_data:
             # Move the accessed key to the end to mark it as most recently used
             self.cache_data.move_to_end(key)
