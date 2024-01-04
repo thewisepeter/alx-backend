@@ -28,8 +28,9 @@ from base_caching import BaseCaching
 
 class MRUCache(BaseCaching):
     '''
-        MRUCache that inherits from BaseCaching
-        and is a caching system
+        Represents an object that allows storing and
+        retrieving items from a dictionary with an MRU
+        removal mechanism when the limit is reached.
     '''
     def __init__(self):
         super().__init__()
