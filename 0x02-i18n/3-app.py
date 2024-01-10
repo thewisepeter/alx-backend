@@ -2,7 +2,7 @@
 '''
     module that shows Babel at work
 '''
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
@@ -28,7 +28,6 @@ def get_locale() -> str:
 @app.route('/')
 def get_index() -> str:
     ''' route that takes me home '''
-
     return render_template('3-index.html')
 
 
