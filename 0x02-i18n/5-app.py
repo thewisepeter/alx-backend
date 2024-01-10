@@ -4,6 +4,7 @@
 '''
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
+from typing import Union, Dict
 
 
 class Config(object):
@@ -27,8 +28,8 @@ users = {
 }
 
 
-def get_user():
-    ''' function that gets a user '''
+def get_user() -> Union[Dict, None]:
+    ''' function that gets a user  '''
     login_id = request.args.get('login_as')
     if login_id:
         return users.get(int(login_id))
