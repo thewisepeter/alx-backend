@@ -8,7 +8,9 @@ from typing import Union, Dict
 
 
 class Config(object):
-    ''' contains list of supported languages '''
+    '''
+        contains list of supported languages
+    '''
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -29,7 +31,9 @@ users = {
 
 
 def get_user() -> Union[Dict, None]:
-    ''' function that gets a user  '''
+    '''
+        function that gets a user
+    '''
     login_id = request.args.get('login_as')
     if login_id:
         return users.get(int(login_id))
@@ -38,14 +42,18 @@ def get_user() -> Union[Dict, None]:
 
 @app.before_request
 def before_request() -> None:
-    ''' runs before other functions '''
+    '''
+        runs before other functions
+    '''
     user = get_user()
     g.user = user
 
 
 @babel.localeselector
 def get_locale() -> str:
-    ''' gets locale for a web page '''
+    '''
+        gets locale for a web page
+    '''
     locale = request.args.get('locale', '')
     if locale in app.config["LANGUAGES"]:
         return locale
@@ -54,7 +62,9 @@ def get_locale() -> str:
 
 @app.route('/')
 def get_index() -> str:
-    ''' route that takes me home '''
+    '''
+        route that takes me home
+    '''
 
     return render_template('5-index.html')
 
