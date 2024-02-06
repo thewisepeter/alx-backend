@@ -1,4 +1,4 @@
-const kue = require('kue');
+import { createQueue } from 'kue';
 const queue = kue.createQueue();
 
 // Create an object containing the job data
