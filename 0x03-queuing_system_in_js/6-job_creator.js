@@ -1,24 +1,28 @@
 const kue = require('kue');
 const queue = kue.createQueue();
 
+// Create an object containing the job data
 const jobData = {
-	  phoneNumber: '1234567890',
-	  message: 'Hello from your notification!',
+  phoneNumber: '0777234567',
+  message: 'Hello from your notification!',
 };
 
+// Create a queue named push_notification_code and create a job with the provided data
 const job = queue.create('push_notification_code', jobData)
   .save((err) => {
-	      if (err) {
-		            console.error('Notification job creation failed:', err);
-		            return;
-		          }
-	      console.log('Notification job created:', job.id);
-	    });
+    if (err) {
+      console.error('Notification job failed');
+      return;
+    }
+    console.log('Notification job created:', job.id);
+  });
 
+// Listen for job completion
 job.on('complete', () => {
-	  console.log('Notification job completed');
+  console.log('Notification job completed');
 });
 
+// Listen for job failure
 job.on('failed', () => {
-	  console.log('Notification job failed');
+  console.log('Notification job failed');
 });
